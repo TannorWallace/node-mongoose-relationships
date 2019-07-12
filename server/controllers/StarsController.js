@@ -4,26 +4,6 @@ import _planetService from '../services/PlanetsService.js'
 
 export default class StarsController {
 
-  async getPlanetsByStar(req, res, next) {
-    try {
-      let planets = await _planetService.find({ star: req.params.starId })
-      res.send(planets)
-    } catch (error) {
-      next(error)
-    }
-  }
-
-  addPlanet(arg0, addPlanet) {
-    throw new Error("Method not implemented.");
-  }
-
-  async createStar(req, res, next) {
-    try {
-      let star = await _starsService.create(req.body)
-      res.send(star)
-    } catch (err) { next(err) }
-  }
-
   async getAllStars(req, res, next) {
     try {
       let stars = await _starsService.find()
@@ -43,18 +23,38 @@ export default class StarsController {
       next(error)
     }
   }
-
-  async addStar(req, res, next) {
+  async getPlanetsByStar(req, res, next) {
     try {
-      let star = await _starsService.findById(req.params.starId)
-      star.planet.push(req.body.planetId)
-      await star.save(err => {
-        if (err) {
-          next(err)
-        }
-      })
+      let planets = await _planetService.find({ star: req.params.starId })
+      res.send(planets)
+    } catch (error) {
+      next(error)
+    }
+  }
+
+  async createStar(req, res, next) {
+    try {
+      let star = await _starsService.create(req.body)
       res.send(star)
     } catch (err) { next(err) }
+  }
+
+  async editStar(req, res, next) {
+    try {
+      let editStar = await _starsService.findByIdAndUpdate(req.params.starId, req.body, { new: true })
+      res.send(editStar)
+    } catch (error) {
+      next(error)
+    }
+  }
+
+  async deleteStar(req, res, next) {
+    try {
+      let deleteStar = await _starsService.findByIdAndDelete(req.params.starId)
+      res.send("SUPERNOVA!")
+    } catch (error) {
+      next(error)
+    }
   }
 
   constructor() {
@@ -63,7 +63,7 @@ export default class StarsController {
       .get('/:starId', this.getStar)
       .get('/starId/planets', this.getPlanetsByStar)
       .post('', this.createStar)
-      .put('/:starId/planets', this.addPlanet)
+      .put('/:starId', this.editStar)
       .delete('/:starId', this.deleteStar)
   }
 

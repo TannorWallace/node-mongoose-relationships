@@ -14,5 +14,13 @@
     "express": "^4.17.1",
     "mongoose": "^5.6.4"
   },
-  "devDependencies": {}
+  "devDependencies": {},
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/TannorWallace/node-mongoose-relationships.git"
+  },
+  "bugs": {
+    "url": "https://github.com/TannorWallace/node-mongoose-relationships/issues"
+  },
+  "homepage": "https://github.com/TannorWallace/node-mongoose-relationships#readme"
 }

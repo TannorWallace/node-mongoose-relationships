@@ -9,13 +9,15 @@ let server = express()
 
 server.use(bp.json())
 
-import PlanetsController from './controllers/PlanetsController';
 import GalaxyController from './controllers/GalaxyController';
 import StarsController from './controllers/StarsController';
+import PlanetsController from './controllers/PlanetsController';
+import MoonsController from './controllers/MoonsController'
 
-server.use('/api/planets', new PlanetsController().router)
-server.use('/api/stars', new StarsController().router)
 server.use('/api/galaxy', new GalaxyController().router)
+server.use('/api/stars', new StarsController().router)
+server.use('/api/planets', new PlanetsController().router)
+server.use('/api/moons', new MoonsController().router)
 
 
 
